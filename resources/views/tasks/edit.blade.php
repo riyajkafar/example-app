@@ -4,51 +4,62 @@
             {{ __('Edit Tasks') }}
         </h2>
     </x-slot>
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-    <div class="flex items-center justify-center h-screen">
-        <form action="{{ route('tasks.update', $task) }}" method="POST" class="max-w-md w-full">
-            @csrf
-            @method('PUT')
+            <form action="{{ route('tasks.update', $task) }}" method="POST" class="w-full">
+                @csrf
+                @method('PUT')
 
-            <h1 class="text-3xl font-bold mb-4 text-center">Edit Task</h1>
+                <div>
+                    <x-input-label for="title">Title:</x-input-label>
+                    <x-text-input type="text" name="title" :value="$task->title" class="block mt-1 w-full">
+                    </x-text-input>
+                </div>
 
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-600">Title:</label>
-                <input type="text" name="title" value="{{ $task->title }}" required
-                       class="mt-1 p-2 border border-gray-300 rounded-md w-full">
-            </div>
 
-            <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-600">Description:</label>
-                <textarea name="description" class="mt-1 p-2 border border-gray-300 rounded-md w-full">{{ $task->description }}</textarea>
-            </div>
+                <div>
+                    <x-input-label for="description" :value="__('Description')" />
+                    <x-form-textarea id="description" name="description" rows="4" :value="$task->description" required
+                        class="w-full" />
+                    <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                </div>
 
-            <div class="mb-4">
-                <label for="added_date" class="block text-sm font-medium text-gray-600">Added Date:</label>
-                <input type="text" name="added_date" value="{{ $task->added_date }}" readonly
-                       class="mt-1 p-2 border border-gray-300 rounded-md w-full bg-gray-100">
-            </div>
 
-            <div class="mb-4">
-                <label for="status" class="block text-sm font-medium text-gray-600">Status:</label>
-                <select name="status" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
-                    <option value="Not Started" {{ $task->status == 'Not Started' ? 'selected' : '' }}>Not Started</option>
-                    <option value="Doing" {{ $task->status == 'Doing' ? 'selected' : '' }}>Doing</option>
-                    <option value="Finished" {{ $task->status == 'Finished' ? 'selected' : '' }}>Finished</option>
-                </select>
-            </div>
 
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded-md w-full">Update Task</button>
-        </form>
-    </div>
-</div>
-</div>
-</div>
-</div>
+
+                <div>
+                    <x-input-label for="added_date">Added Date:</x-input-label>
+                    <x-text-input type="text" name="added_date" :value="$task->added_date" class="block mt-1 w-full">
+                    </x-text-input>
+                </div>
+
+                <div>
+                    <x-input-label for="deadline_date">Deadline Date:</x-input-label>
+                    <x-text-input type="date" name="deadline_date" :value="$task->deadline_date" class="block mt-1 w-full">
+                    </x-text-input>
+                </div>
+
+                <div>
+                    <label for="status">Status:</label>
+                    <select name="status" class="block mt-1 w-full border-gray-300 rounded-md">
+                        <option value="Not Started" {{ $task->status == 'Not Started' ? 'selected' : '' }}>Not Started
+                        </option>
+                        <option value="Doing" {{ $task->status == 'Doing' ? 'selected' : '' }}>Doing</option>
+                        <option value="Finished" {{ $task->status == 'Finished' ? 'selected' : '' }}>Finished</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+                    <x-primary-button>
+                        {{ __('Update Task') }}
+                    </x-primary-button>
+                </div>
+                <div class="text-center">
+                    <x-nav-link href="{{ route('tasks.index') }}">
+                        Back to task List
+                    </x-nav-link>
+                </div>
+            </form>
+        </div>
 </x-app-layout>
-
-
