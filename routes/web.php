@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Payment;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TaskController;
@@ -18,18 +18,34 @@ use App\Http\Controllers\TaskController;
 |
 */
 
+// Welcome Page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Profile Routes
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    // Product CRUD Routes
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
+        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/{id}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    });
 
     // Account routes
     Route::prefix('accounts')->group(function () {
@@ -41,7 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{account}', [AccountController::class, 'destroy'])->name('accounts.destroy');
     });
 
-    // Payment routes 
+    // Payment routes
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
         Route::get('/create', [PaymentController::class, 'create'])->name('payments.create');
@@ -51,8 +67,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/{payment}',  [PaymentController::class, 'update'])->name('payments.update');
         Route::delete('/{payment}',  [PaymentController::class, 'destroy'])->name('payments.destroy');
     });
-    
-    // Task routes 
+
+    // Task routes
     Route::prefix('tasks')->group(function () {
         Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
         Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
