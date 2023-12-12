@@ -12,9 +12,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <!-- Navigation Links -->
                     <!--Dashboard Nav link-->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <!--Shop Nav link-->
+                    <x-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
+                        {{ __('Shops') }}
                     </x-nav-link>
                     <!--Accounts Nav link-->
                     <x-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.index')">
@@ -93,25 +98,29 @@
         <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
                 <!--Dashboard Nav link-->
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
+                <!--Shop Nav link-->
+                <x-responsive-nav-link :href="route('shops.index')" :active="request()->routeIs('shops.index')">
+                    {{ __('Shops') }}
+                </x-responsive-nav-link>
                 <!--Accounts Nav link-->
-                <x-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.index')">
+                <x-responsive-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.index')">
                     {{ __('Accounts') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
                 <!--Payments Nav link-->
-                <x-nav-link :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                <x-responsive-nav-link :href="route('payments.index')" :active="request()->routeIs('payments.index')">
                     {{ __('Payments') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
                 <!--Tasks Nav link-->
-                <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
+                <x-responsive-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
                     {{ __('Tasks') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
                 <!--Product Nav link-->
-                <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                     {{ __('Product') }}
-                </x-nav-link>
+                </x-responsive-nav-link>
             </div>
 
             <!-x Settings Options -->
