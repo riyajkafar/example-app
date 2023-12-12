@@ -28,13 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Shop Routes
     Route::prefix('shops')->group(function () {
-        Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
-        Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
-        Route::post('/shops/store', [ShopController::class, 'store'])->name('shops.store');
-        Route::get('/shops/{id}/edit', [ShopController::class, 'edit'])->name('shops.edit');
-        Route::put('/shops/{shop}', [ShopController::class, 'update'])->name('shops.update');
-        Route::delete('/shops/{shop}', [ShopController::class, 'destroy'])->name('shops.destroy');
+        Route::get('/', [ShopController::class, 'index'])->name('shops.index');
+        Route::get('/create', [ShopController::class, 'create'])->name('shops.create');
+        Route::post('/store', [ShopController::class, 'store'])->name('shops.store');
+        Route::get('/{id}/edit', [ShopController::class, 'edit'])->name('shops.edit');
+        Route::put('/{shop}', [ShopController::class, 'update'])->name('shops.update');
+        Route::delete('/{shop}', [ShopController::class, 'destroy'])->name('shops.destroy');
     });
 });
 
