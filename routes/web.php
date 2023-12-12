@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/{payment}',  [PaymentController::class, 'update'])->name('payments.update');
         Route::delete('/{payment}',  [PaymentController::class, 'destroy'])->name('payments.destroy');
     });
+    
     // Task routes 
     Route::prefix('tasks')->group(function () {
         Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
