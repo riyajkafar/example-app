@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
@@ -28,6 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Payment routes 
+    Route::prefix('payments')->group(function () {
+        Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
+        Route::get('/create', [PaymentController::class, 'create'])->name('payments.create');
+        Route::post('/store', [PaymentController::class, 'store'])->name('payments.store');
+        Route::get('/show/{payment}',  [PaymentController::class, 'show'])->name('payments.show');
+        Route::get('/{id}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
+        Route::put('/{payment}',  [PaymentController::class, 'update'])->name('payments.update');
+        Route::delete('/{payment}',  [PaymentController::class, 'destroy'])->name('payments.destroy');
+    });
+    // Task routes 
     Route::prefix('tasks')->group(function () {
         Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
         Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
@@ -36,7 +49,6 @@ Route::middleware('auth')->group(function () {
         Route::put('/{task}', [TaskController::class, 'update'])->name('tasks.update');
         Route::delete('/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     });
-    
 });
 
 require __DIR__ . '/auth.php';
