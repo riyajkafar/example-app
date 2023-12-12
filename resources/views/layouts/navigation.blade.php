@@ -18,7 +18,14 @@
                     <x-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.index')">
                         {{ __('Accounts') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                        {{ __('Payments') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
+                        {{ __('Tasks') }}
+                    </x-nav-link>
                 </div>
+                
             </div>
 
             <!-- Settings Dropdown -->
@@ -83,6 +90,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.index')">
                 {{ __('Accounts') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                {{ __('Payments') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
+                {{ __('Tasks') }}
             </x-responsive-nav-link>
         </div>
 
